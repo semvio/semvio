@@ -8,7 +8,7 @@
     "start": "next start -p 6740",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "NODE_OPTIONS=--conditions=react-server tsx --test src/lib/*.test.ts src/lib/deal/*.test.ts src/lib/server/*.test.ts scripts/*.test.mjs",
+    "test": "NODE_OPTIONS=--conditions=react-server tsx --test src/lib/*.test.ts src/lib/deal/*.test.ts src/lib/server/*.test.ts src/lib/holder/*.test.ts scripts/*.test.mjs",
     "contracts:artifacts": "node scripts/contracts-artifacts.mjs",
     "verify-deployment": "node scripts/verify-deployment.mjs"
   },

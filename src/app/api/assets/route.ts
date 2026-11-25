@@ -13,6 +13,9 @@ export const maxDuration = 30;
  */
 export async function GET(request: Request) {
   if (!(await allowPublic(getStore(), request, "assets", 30, 600))) return tooMany();
+  // Local end-to-end builds (anvil fork, test override set) skip the 212-token proof scan: on a fork every first read is fetched
+  // from the real chain one by one, which starves the fork. Never set on Vercel.
+  if (process.env.NEXT_PUBLIC_SEMVIO_TEST_CONTRACTS) return ok({ stocks: [], eth: null, head: null, readAt: Date.now(), candidates: 0, unknown: 0, complete: false, test: true }, 30);
   try {
     const b = await readBoard();
     const stocks = b.stocks

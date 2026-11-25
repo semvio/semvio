@@ -35,6 +35,7 @@ export function SiteFooter() {
         <div>
           <h3>Product</h3>
           <Link className="l" href="/workspace">Workspace</Link>
+          <Link className="l" href="/board">Matching board</Link>
           <Link className="l" href="/deals">Deals &amp; proofs</Link>
           <Link className="l" href="/method">Method</Link>
           <Link className="l" href="/token">{BRAND.symbol}</Link>

@@ -156,15 +156,29 @@ export default function MethodPage() {
       </section>
 
       <section className="wrap pt-20">
+        <p className="eyebrow" style={S("var(--lime)")}>Board, sessions and alerts</p>
+        <h2 className="h-sub mt-5">What the server keeps, and how it checks you</h2>
+        <ul className="mt-5 grid gap-2 text-[13px] text-[var(--ink-2)]">
+          <li>· Sign-in: one EIP-4361 message (no gas) for semvio.xyz, chain 4663, valid at most 4 hours. The server checks the signature, a fixed list of domains (never the request&apos;s Host header), the chain, the expiry and that you did not sign out, on every request. EOA wallets only.</li>
+          <li>· Tier: balanceOf × 1000 ≥ totalSupply on the {"$SEMVIO"} contract, read at each holder action (cached 30 seconds per wallet). Before launch everyone is on the free tier.</li>
+          <li>· Board: public requests (side, asset, size, indicative unit price, validity). Limits per wallet by tier, per network and for the whole site; a full board refuses new posts and never drops anyone&apos;s request. Holder requests are listed and matched first.</li>
+          <li>· Storage: a shared store when configured; otherwise this server&apos;s memory (bounded, with expiry), and the page says data may be lost on restart.</li>
+          <li>· Alerts: derived from the deal room&apos;s events for your wallet on request; nothing is stored about you on the server. Browser notifications only while a tab is open.</li>
+        </ul>
+      </section>
+
+      <section className="wrap pt-20">
         <p className="eyebrow" style={S("var(--orange)")}>Status</p>
         <ul className="mt-6 grid gap-2 text-[13px]">
           {[
             ["Deal card, revisions, checks, approvals, practice settlement", "Prototype"],
             ["On-chain deals on Robinhood Chain and Robinhood Chain Testnet", "Prototype"],
             ["Deterministic agent proposing inside one limit", "Prototype"],
-            ["Live matching against real counterparties' requests", "Concept"],
+            ["Matching board: post a request, see crossing requests on the other side, open the deal", "Prototype"],
+            ["Holder tier (0.1 % of $SEMVIO supply, read on chain): board priority, templates, team workspace", "Prototype"],
+            ["Alerts: bell inbox and browser notifications from the room's events", "Prototype"],
+            ["Automatic negotiation between two real users' agents on the board", "Concept"],
             ["Language-model assistant that drafts notes", "Concept"],
-            ["$SEMVIO: priority matching, saved deal templates", "Concept"],
           ].map(([t, s]) => (
             <li key={t} className="panel flex flex-wrap items-center justify-between gap-2 px-4 py-3">
               <span className="text-[var(--ink-2)]">{t}</span>

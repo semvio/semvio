@@ -1,4 +1,4 @@
-import { isAddress } from "@/config/brand";
+import { BRAND, isAddress } from "@/config/brand";
 import type { NetKey } from "@/config/networks";
 
 /*
@@ -9,7 +9,7 @@ import type { NetKey } from "@/config/networks";
  *              revision, atomic transferFrom settlement. No admin, no fee, no upgrade, never holds a balance.
  *   testToken  SemvioPracticeToken "Semvio Test Dollar" (tUSD, 6 decimals), testnet only, anyone may mint (no value).
  */
-export type Deployment = { room: string; block: number; tx: string; testToken: string };
+export type Deployment = { room: string; block: number; tx: string; testToken: string; token?: string };
 
 const DEPLOYED: Record<NetKey, Deployment> = {
   mainnet: { room: "", block: 0, tx: "", testToken: "" },
@@ -35,3 +35,13 @@ export const CONTRACTS = withOverride();
 export const roomOf = (net: NetKey) => CONTRACTS[net].room;
 export const roomLive = (net: NetKey) => isAddress(CONTRACTS[net].room);
 export const CONTRACT_NAME = "SemvioDealRoom" as const;
+
+/**
+ * The token the holder tier reads: $SEMVIO (BRAND.ca) once it is live. The local test override may name a test ERC-20 on anvil
+ * (`"token"` in NEXT_PUBLIC_SEMVIO_TEST_CONTRACTS) so the end-to-end run can prove both tiers before launch. Null = not launched.
+ */
+export function holderToken(): `0x${string}` | null {
+  const t = CONTRACTS.mainnet.token;
+  if (t && isAddress(t)) return t;
+  return isAddress(BRAND.ca) ? BRAND.ca : null;
+}

@@ -28,7 +28,11 @@ export const FAQ: Faq[] = [
   },
   {
     q: "Do I need the $SEMVIO token?",
-    a: "No. The workspace, the room and the dashboard work without it and the token is not live yet. Its token features (priority matching and saved deal templates) are concepts and are labelled as such.",
+    a: "No. The workspace, the room and the dashboard work without it and the token is not live yet. Holding at least 0.1 % of the supply (read on chain) unlocks token features: more live requests on the matching board, matched first, saved deal templates and a team workspace. Everything else, including alerts, stays free.",
+  },
+  {
+    q: "How do alerts work?",
+    a: "The bell in the header lists what happened on your deals (a new revision from the other side, an approval, a settlement, a cancellation, a deal about to expire), read from the deal room's events for your connected wallet. Click Enable to also get browser notifications while a tab of the site is open. No email, no push service, free for everyone.",
   },
   {
     q: "Is Semvio connected to Robinhood?",

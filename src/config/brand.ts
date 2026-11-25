@@ -87,3 +87,16 @@ export function tokenExplorerUrl(): string | null {
 
 // Network details live in src/config/networks.ts (mainnet + testnet). CHAIN is the home network the token lives on.
 export { CHAIN, addChainParams, serverRpc, explorerAddress, explorerTx, explorerToken } from "@/config/networks";
+
+/**
+ * Origins a holder session (SIWE) may name. Fixed here, never taken from request headers: the brand domain and www, plus the local
+ * QA ports (site 6740, end-to-end build 6741) only when the server is not running on Vercel.
+ */
+export function sessionOrigins(): { domain: string; uri: string }[] {
+  const list = [
+    { domain: DOMAIN, uri: `https://${DOMAIN}` },
+    { domain: `www.${DOMAIN}`, uri: `https://www.${DOMAIN}` },
+  ];
+  if (!process.env.VERCEL) for (const h of ["localhost", "127.0.0.1"]) for (const p of [6740, 6741]) list.push({ domain: `${h}:${p}`, uri: `http://${h}:${p}` });
+  return list;
+}

@@ -239,12 +239,26 @@ function OpenForm({ net, live, stocks, onOpened }: { net: NetKey; live: boolean;
   const w = useWallet();
   const { busy, msg, send } = useTx(net);
   const opts = presets(net, stocks);
-  const [iSell, setISell] = useState(true);
-  const [cp, setCp] = useState("");
-  const [base, setBase] = useState<Token | null>(opts.base[0] ?? null);
+  // A link from the board or a template prefills the form: ?side=&cp=&base=&amountRaw=&priceRaw= (raw base units / USDG units).
+  const [pre] = useState(() => {
+    if (typeof window === "undefined") return null;
+    const q = new URLSearchParams(window.location.search);
+    return q.get("base") ? q : null;
+  });
+  const [iSell, setISell] = useState(pre ? pre.get("side") !== "buy" : true);
+  const [cp, setCp] = useState(pre && isAddress(pre.get("cp") ?? "") ? (pre.get("cp") as string) : "");
+  const [base, setBase] = useState<Token | null>(() => (pre ? (opts.base.find((t) => same(t.address, pre.get("base"))) ?? opts.base[0] ?? null) : (opts.base[0] ?? null)));
   const [quote, setQuote] = useState<Token | null>(opts.quote[0] ?? null);
-  const [amountText, setAmount] = useState("");
-  const [grossText, setGross] = useState("");
+  const [amountText, setAmount] = useState(() => {
+    const raw = pre?.get("amountRaw");
+    return raw && /^\d+$/.test(raw) && base ? fromUnits(BigInt(raw), base.decimals, base.decimals).replace(/,/g, "") : "";
+  });
+  const [grossText, setGross] = useState(() => {
+    const a = pre?.get("amountRaw");
+    const p = pre?.get("priceRaw");
+    if (!a || !p || !/^\d+$/.test(a) || !/^\d+$/.test(p) || !base) return "";
+    return fromUnits((BigInt(p) * BigInt(a)) / 10n ** BigInt(base.decimals), 6, 6).replace(/,/g, "");
+  });
   const [feeText, setFee] = useState("0");
   const [feeTo, setFeeTo] = useState("");
   const [dealHours, setDealHours] = useState("72");

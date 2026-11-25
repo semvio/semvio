@@ -8,6 +8,7 @@ import { NAV } from "@/config/nav";
 import { Wordmark } from "@/components/site/Mark";
 import { CloseIcon, MenuIcon } from "@/components/site/Icons";
 import { NavWallet } from "@/components/wallet/WalletButton";
+import { Bell } from "@/components/alerts/Bell";
 import { CaBox } from "@/components/site/CaCopy";
 import { useFocusTrap } from "@/components/site/useFocusTrap";
 
@@ -32,6 +33,7 @@ export function SiteHeader() {
             </nav>
             <div className="ml-auto flex min-w-0 items-center gap-2 min-[900px]:ml-0">
               <CaBox compact testid="header-ca" className="max-[1179px]:hidden" />
+              <Bell />
               <NavWallet label="Connect wallet" />
               <button type="button" className="rq-iconbtn min-[900px]:hidden" aria-label="Open the menu" aria-expanded={open} onClick={() => setOpen(true)} data-testid="menu-open">
                 <MenuIcon size={18} />
