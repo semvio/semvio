@@ -26,7 +26,7 @@ export default function TokenPage() {
       <section className="wrap grid gap-6">
         <div className="panel p-6" data-reveal="">
           <div className="flex flex-wrap items-center gap-4">
-            <img src="/brand/mark-tile.webp?v=08c4e052" alt={`${BRAND.tokenName} token logo`} width={56} height={56} className="rounded-[12px]" />
+            <img src="/brand/mark-tile.webp?v=d5c0b77d" alt={`${BRAND.tokenName} token logo`} width={56} height={56} className="rounded-[12px]" />
             <div>
               <p className="h-card text-[20px]">{BRAND.tokenName}</p>
               <p className="text-[12px] text-[var(--muted)]">{TOKEN.isLive ? "Live on Robinhood Chain" : "Not launched yet · launchpad TBA"}</p>

@@ -10,7 +10,7 @@ export const HOME_DESCRIPTION = `OTC deals on ${BRAND.chainName} on one card: as
  * Open Graph / X cards. The share image comes from the opengraph-image and
  * twitter-image files in src/app, which every route inherits.
  */
-export const SHARE_ALT = `${BRAND.name} wordmark and slogan beside a deal card with its revision timeline, on a dark ground with a grainy light streak.`;
+export const SHARE_ALT = `Semvio mark and wordmark on the dark Semvio banner, with soft light streaks in two corners.`;
 
 export function pageMeta({
   path,
@@ -27,13 +27,13 @@ export function pageMeta({
 }): Metadata {
   const url = `${BRAND.url}${path === "/" ? "" : path}`;
   // Child routes that set openGraph replace the inherited file-based image, so name it explicitly.
-  const images = [{ url: "/opengraph-image.jpg?v=7e6cfbb5", width: 1200, height: 630, alt: SHARE_ALT }];
+  const images = [{ url: "/opengraph-image.jpg?v=0cd7855f", width: 1200, height: 630, alt: SHARE_ALT }];
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: url },
     openGraph: { type, url, siteName: BRAND.name, title, description, locale: "en_US", images },
-    twitter: { card: "summary_large_image", site: BRAND.xHandle, creator: BRAND.xHandle, title, description, images: [{ url: "/twitter-image.jpg?v=7e6cfbb5", alt: SHARE_ALT }] },
+    twitter: { card: "summary_large_image", site: BRAND.xHandle, creator: BRAND.xHandle, title, description, images: [{ url: "/twitter-image.jpg?v=0cd7855f", alt: SHARE_ALT }] },
     robots: noindex ? { index: false, follow: true } : undefined,
   };
 }
