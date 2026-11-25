@@ -20,7 +20,7 @@ const SLUG = "semvio";
 const TICKER = "SEMVIO";
 const DOMAIN = "semvio.xyz";
 /** X account of the project (the owner's handle, exactly as written in the order). */
-const X_HANDLE = "semvio";
+const X_HANDLE = "semvioxyz";
 
 export const BRAND = {
   name: NAME,
@@ -39,8 +39,8 @@ export const BRAND = {
   description: `${NAME} is a calm workspace for over-the-counter deals on Robinhood Chain. A deal card shows the asset, amount, agreed fee, the seller's net and how long the offer stands; every change of the offer is a revision on record, chained by hash. An agent can propose revisions inside your price limit but never signs. Both sides approve one exact revision, and only that revision settles, as one non-custodial swap.`,
   x: `https://x.com/${X_HANDLE}`,
   xHandle: `@${X_HANDLE}`,
-  // No public repository yet: the link stays hidden until this is a full repository URL.
-  github: "https://github.com",
+  // Public source repository (open source, MIT).
+  github: "https://github.com/semvio/semvio",
   ca: CA,
 } as const;
 
