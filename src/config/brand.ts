@@ -10,7 +10,7 @@ const CA: string = "TBA";
  * out of search with noindex) instead of redirecting to a domain that does not serve the site.
  * DNS 25 Nov 2026 (DoH): semvio.xyz is on Cloudflare nameservers but has no A record yet.
  */
-export const DOMAIN_LIVE = false;
+export const DOMAIN_LIVE = true;
 
 export const isAddress = (v: string): v is `0x${string}` => /^0x[0-9a-fA-F]{40}$/.test(v);
 
