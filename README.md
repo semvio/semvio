@@ -100,7 +100,7 @@ Testnet: chain ID 46630, RPC https://rpc.testnet.chain.robinhood.com, explorer h
 
 ## Token
 
-$SEMVIO is the community token of Semvio on Robinhood Chain. Contract address: announced on https://semvio.xyz at launch. It has no promised value. Its planned use (priority matching and saved deal templates) is not built; Semvio never needs the token.
+$SEMVIO is the community token of Semvio on Robinhood Chain. Contract address: announced on https://semvio.xyz at launch. It has no promised value. Its token features (priority matching and saved deal templates) are concepts and not built; Semvio never needs the token.
 
 ## Deploy your own
 

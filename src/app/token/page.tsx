@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   path: "/token",
   title: `${BRAND.symbol} token | Semvio`,
-  description: `${BRAND.symbol} on Robinhood Chain: contract address, launch status and the planned uses. Semvio's workspace and deal room never need the token.`,
+  description: `${BRAND.symbol} on Robinhood Chain: contract address, launch status and the token features. Semvio's workspace and deal room never need the token.`,
 });
 
 export default function TokenPage() {
@@ -15,7 +15,7 @@ export default function TokenPage() {
   const exp = tokenExplorerUrl();
   return (
     <>
-      <PageHead eyebrow={BRAND.symbol} dot="var(--lime)" title="A memecoin with planned uses, never a requirement.">
+      <PageHead eyebrow={BRAND.symbol} dot="var(--lime)" title="The community token, never a requirement.">
         <p>
           {BRAND.symbol} ({BRAND.tokenName}) lives on Robinhood Chain; gas is paid in ETH. The workspace, the deal room and the dashboard work without it. Nothing here is a
           promise of value.

@@ -28,7 +28,7 @@ export const FAQ: Faq[] = [
   },
   {
     q: "Do I need the $SEMVIO token?",
-    a: "No. The workspace, the room and the dashboard work without it and the token is not live yet. Its planned use (priority matching and saved deal templates) is a concept and is labelled as one.",
+    a: "No. The workspace, the room and the dashboard work without it and the token is not live yet. Its token features (priority matching and saved deal templates) are concepts and are labelled as such.",
   },
   {
     q: "Is Semvio connected to Robinhood?",
