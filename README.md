@@ -10,7 +10,7 @@ This repository is the working code behind https://semvio.xyz.
 
 - **What runs today.** The workspace (`/workspace`) has a practice mode that needs no wallet: write a buy or sell request with a price limit, let the agent negotiate with sample counterparties (every proposal is a revision), see the buyer-budget and seller-net checks in numbers, approve, and settle in a simulated swap. On-chain mode opens, counters, approves and settles real deals against the `SemvioDealRoom` contract on Robinhood Chain or Robinhood Chain Testnet. `/deals` lists a wallet's deals with their settlement transactions.
 - **Live data.** Block, gas price and the deal room come from each network's JSON-RPC. Reference prices come from Chainlink feeds on Robinhood Chain (ETH / USD and the stock-token feeds), with their update time. Robinhood stock tokens are offered only after an on-chain identity check.
-- **The contract.** `SemvioDealRoom` records deals and chained revisions, takes one approval per side for one exact revision, and settles it with `transferFrom` straight between the two wallets. It has no owner, no admin, no protocol fee, no upgrade, and never holds a balance. **It is not deployed yet**, and it has not had an independent security review: use the testnet first, then small amounts.
+- **The contract.** `SemvioDealRoom` records deals and chained revisions, takes one approval per side for one exact revision, and settles it with `transferFrom` straight between the two wallets. It has no owner, no admin, no protocol fee, no upgrade, and never holds a balance. **It is live on Robinhood Chain mainnet** at `0xf69e694c36535b7509c35f9a64ae63620a760e4f` (source verified on Blockscout; not deployed on the testnet). It has not had an independent security review: start with small amounts.
 - **The agent** is deterministic code that proposes prices inside one side's private limit. It is not a language model, it cannot approve or sign, and it never sees the other side's limit.
 - **Board, alerts and token features.** `/board` is a matching board open to everyone with a signed sign-in (EIP-4361, no gas): post a request, see crossing requests, open the deal. The bell lists events on your deals and can raise browser notifications; alerts are free. A wallet holding at least 0.1 % of the $SEMVIO supply (balanceOf × 1000 ≥ totalSupply, read on chain at each action) gets more live requests, matched first, saved deal templates and a team workspace; before the token exists these unlock at launch.
 - **Concept, not built.** Agents negotiating automatically between two real users, and a language-model assistant for notes. Nothing here guarantees a fair price, a counterparty, or any value for $SEMVIO.
@@ -19,7 +19,7 @@ This repository is the working code behind https://semvio.xyz.
 
 | Path | What it is |
 |---|---|
-| `src/app/` | Pages (`/`, `/workspace`, `/board`, `/deals`, `/method`, `/token`, a localhost-only `/deploy`) and API routes (`/api/chain`, `/api/assets`, `/api/deal`, `/api/deals`, `/api/rpc`, `/api/board`, `/api/holder`, `/api/templates`, `/api/team`, `/api/alerts`). |
+| `src/app/` | Pages (`/`, `/workspace`, `/board`, `/deals`, `/method`, `/token`) and API routes (`/api/chain`, `/api/assets`, `/api/deal`, `/api/deals`, `/api/rpc`, `/api/board`, `/api/holder`, `/api/templates`, `/api/team`, `/api/alerts`). |
 | `src/components/` | Interface components: the deal card and revision timeline, practice and on-chain workspaces, wallet connection. |
 | `src/config/` | `brand.ts` (name, ticker, token address, links), `networks.ts` (mainnet and testnet), `contracts.ts` (deployed addresses), `dex.ts` and `chain.ts` (on-chain facts). |
 | `src/lib/deal/` | The site's copy of the fee math, reason bits and hashes, the negotiation agent, sample desks and the practice deal model. |
@@ -54,6 +54,8 @@ forge test --match-contract Fork --fork-url https://rpc.mainnet.chain.robinhood.
 
 2026-11-25 (UTC), token features added: `npm test` 41 pass / 0 fail (adds sign-in checks: foreign domain, spoofed host, non-SIWE text, wrong chain, expired, over 4 hours, signed out; tier at exactly 0.1 %, one unit under and zero supply; quotas, holder reserve and a full board that keeps every entry; bounded memory store; alert derivation); `forge test` unchanged at 45 (no contract change). The browser run on a local Robinhood Chain fork now has 12 of 12 steps, with a test ERC-20 standing in for $SEMVIO: a holder above 0.1 % saves a template, a wallet under it is refused with the numbers and hits the free quota on its 4th post, the holder's request is listed and matched first, a signed-out session is refused, and the buyer's bell shows the other side's approval and the settlement.
 
+2026-11-25 (UTC), after the owner's mainnet deployment: `npm run verify-deployment` for `0xf69e694c36535b7509c35f9a64ae63620a760e4f` (creation tx `0x27a0ffed…1f94`, block 122,888,664, 2,672,435 gas) printed MATCH, and Blockscout verified the source from the standard JSON input in this repository's build.
+
 ## Look at the site
 
 ```
@@ -62,13 +64,13 @@ npm run build
 npm start
 ```
 
-Open http://localhost:6740. Everything works with no configuration: practice mode, live chain data through the public RPC, and on-chain mode once a room address is set in `src/config/contracts.ts`. Optional: `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` (a WalletConnect Cloud project id, 32 hex characters); without it WalletConnect shows "Not configured on this site yet".
+Open http://localhost:6740. Everything works with no configuration: practice mode, live chain data through the public RPC, and on-chain mode against the live room on Robinhood Chain mainnet (the testnet has no room yet). Optional: `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` (a WalletConnect Cloud project id, 32 hex characters); without it WalletConnect shows "Not configured on this site yet".
 
 ## Contracts
 
 | Contract | Network | Address | Explorer |
 |---|---|---|---|
-| SemvioDealRoom | Robinhood Chain (4663) | not deployed yet | — |
+| SemvioDealRoom | Robinhood Chain (4663) | `0xf69e694c36535b7509c35f9a64ae63620a760e4f` (block 122,888,664) | [Blockscout, source verified](https://robinhoodchain.blockscout.com/address/0xf69e694c36535b7509c35f9a64ae63620a760e4f?tab=contract) |
 | SemvioDealRoom | Robinhood Chain Testnet (46630) | not deployed yet | — |
 | SemvioPracticeToken (test dollar, testnet only) | Robinhood Chain Testnet | not deployed yet | — |
 
@@ -79,6 +81,8 @@ Open http://localhost:6740. Everything works with no configuration: practice mod
 ```
 npm run verify-deployment -- --room <address> --room-tx <creation tx> [--testnet]
 ```
+
+For the live room: `npm run verify-deployment -- --room 0xf69e694c36535b7509c35f9a64ae63620a760e4f --room-tx 0x27a0ffedae7e135407bf4a825177f0f83ca2467005893e9c057c045ae6c31f94` prints MATCH.
 
 The script compares the bytecode on Robinhood Chain (or its testnet with `--testnet`) with the build in this repository, checks that the creation transaction carried exactly this build's creation code, and prints MATCH or each difference.
 
@@ -122,8 +126,8 @@ Token features (Prototype, covered by the end-to-end run on a local Robinhood Ch
 | `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | WalletConnect option in the wallet dialog | 32 hex characters |
 | `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Shared store for rate limits, the board, templates, teams and sign-outs (Redis REST). Without it they live in one server's memory and the pages say saved data may be lost on restart | `https://…`, token string |
 
-3. Point your domain at the deployment and check `/` (200), `/api/chain?net=mainnet` (JSON with a block number) and `/deploy` (404 on the public host).
-4. Contracts: run `npm run build` and `npm start` locally, open http://localhost:6740/deploy, deploy `SemvioDealRoom` (no constructor arguments) on the network you want, paste the address, block and creation transaction into `src/config/contracts.ts`, and run `npm run verify-deployment`.
+3. Point your domain at the deployment and check `/` (200) and `/api/chain?net=mainnet` (JSON with a block number and `"roomCode":true`).
+4. Contracts: deploy your own `SemvioDealRoom` (no constructor arguments) with Foundry, for example `forge create src/SemvioDealRoom.sol:SemvioDealRoom --rpc-url <rpc> --private-key <key> --broadcast` from `contracts/`, paste the address, block and creation transaction into `src/config/contracts.ts`, and run `npm run verify-deployment`.
 
 ## Contributing
 

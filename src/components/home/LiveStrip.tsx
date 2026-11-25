@@ -26,7 +26,14 @@ export function LiveStrip() {
             {data.ethUsd ? <> (Chainlink, {ago(data.ethUsd.updatedAt)})</> : null}
           </span>
           <span>
-            deal room <b>{data.roomCode === null ? "not deployed yet" : data.roomCode ? "live" : "no code"}</b>
+            deal room{" "}
+            {data.roomCode ? (
+              <a className="underline" href={`https://robinhoodchain.blockscout.com/address/${data.room}`} target="_blank" rel="noreferrer" data-testid="live-room">
+                <b>live {data.room.slice(0, 6)}…{data.room.slice(-4)}</b>
+              </a>
+            ) : (
+              <b>{data.roomCode === null ? "not deployed yet" : "no code"}</b>
+            )}
           </span>
         </>
       ) : (

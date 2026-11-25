@@ -24,7 +24,7 @@ export const FAQ: Faq[] = [
   },
   {
     q: "Which tokens work?",
-    a: "Any plain ERC-20 on Robinhood Chain. The site offers WETH and USDG (addresses checked on chain) and Robinhood stock tokens that pass an on-chain identity check and have a Chainlink feed. Native ETH is not supported (wrap it first) and fee-on-transfer tokens are refused. On the testnet you can mint a test dollar from the deploy kit.",
+    a: "Any plain ERC-20 on Robinhood Chain. The site offers WETH and USDG (addresses checked on chain) and Robinhood stock tokens that pass an on-chain identity check and have a Chainlink feed. Native ETH is not supported (wrap it first) and fee-on-transfer tokens are refused.",
   },
   {
     q: "Do I need the $SEMVIO token?",

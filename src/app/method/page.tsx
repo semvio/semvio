@@ -93,7 +93,7 @@ export default function MethodPage() {
           <li>· Tokens that return nothing are handled; tokens that return false revert; fee-on-transfer tokens are refused (each arrival must equal the amount sent). Native ETH is not supported: wrap it to WETH.</li>
           <li>· Agents may only propose for their side. Removing an agent takes effect for the next transaction, even in the same block.</li>
           <li>· Limits: deal window up to 30 days, offer expiry inside it, 64 revisions per deal.</li>
-          <li>· No independent security review yet. Use the testnet first, then small amounts.</li>
+          <li>· No independent security review yet. Start with small amounts.</li>
         </ul>
         <div className="mt-6 grid gap-2 text-[12.5px]">
           {(["mainnet", "testnet"] as const).map((k) => (

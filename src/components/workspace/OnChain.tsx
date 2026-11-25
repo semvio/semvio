@@ -112,8 +112,8 @@ export function OnChain() {
 
       {!live ? (
         <p className="verdict" data-testid="not-deployed">
-          The deal room is not deployed on {NETWORKS[net].name} yet. The owner deploys it from a local-only page; until then use Practice mode, which runs the same
-          rules with sample counterparties. {NETWORKS[net].test ? "Testnet ETH comes from the faucet linked in the footer." : ""}
+          The deal room is not deployed on {NETWORKS[net].name}. It is live on Robinhood Chain mainnet; switch the network above, or use Practice mode, which runs the
+          same rules with sample counterparties and needs no wallet.
         </p>
       ) : null}
 

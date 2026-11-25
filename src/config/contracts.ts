@@ -2,8 +2,8 @@ import { BRAND, isAddress } from "@/config/brand";
 import type { NetKey } from "@/config/networks";
 
 /*
- * Semvio's own contracts, one deployment per network. Nothing is deployed yet: the owner deploys from /deploy (localhost only)
- * and pastes the address, block and creation tx here. Check a deployment yourself:
+ * Semvio's own contracts, one deployment per network. Mainnet: SemvioDealRoom deployed by the owner on 25 Nov 2026 (below).
+ * Testnet: not deployed (the testnet mode says so). Check a deployment yourself:
  *   npm run verify-deployment -- --room <address> --room-tx <tx> [--testnet]   (prints MATCH)
  *   room       SemvioDealRoom (+ internal library SemvioFeeMath, inlined): deals, chained revisions, two-sided approval of one
  *              revision, atomic transferFrom settlement. No admin, no fee, no upgrade, never holds a balance.
@@ -12,7 +12,8 @@ import type { NetKey } from "@/config/networks";
 export type Deployment = { room: string; block: number; tx: string; testToken: string; token?: string };
 
 const DEPLOYED: Record<NetKey, Deployment> = {
-  mainnet: { room: "", block: 0, tx: "", testToken: "" },
+  // Deployed by the owner on 25 Nov 2026 (receipt status 1, 2,672,435 gas); verify-deployment MATCH.
+  mainnet: { room: "0xf69e694c36535b7509c35f9a64ae63620a760e4f", block: 122888664, tx: "0x27a0ffedae7e135407bf4a825177f0f83ca2467005893e9c057c045ae6c31f94", testToken: "" },
   testnet: { room: "", block: 0, tx: "", testToken: "" },
 };
 
