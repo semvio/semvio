@@ -73,7 +73,7 @@ export default function TokenPage() {
           <p className="mt-2 text-[12.5px] text-[var(--ink-2)]">
             You sign one sign-in message (no gas). The server checks it on every request, then reads balanceOf(your wallet) and totalSupply() from the token contract on
             Robinhood Chain and compares balance × 1000 with the supply. The result shows your balance, the threshold, your share and the block it was read at, and it is
-            read again at each holder action (at most 30 seconds old). Before {BRAND.symbol} exists, holder features unlock at launch.
+            read again at each holder action (at most 30 seconds old).{TOKEN.isLive ? null : <> Before {BRAND.symbol} exists, holder features unlock at launch.</>}
           </p>
           <h3 className="h-card mt-6">Free for everyone, always</h3>
           <p className="mt-2 text-[12.5px] text-[var(--ink-2)]">

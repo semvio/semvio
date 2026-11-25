@@ -3,7 +3,7 @@
 // and every explorer link derive from it. Anything that is not a 0x + 40 hex address is treated as "not launched yet".
 
 /** Contract address of $SEMVIO on Robinhood Chain. "TBA" until the token exists. */
-const CA: string = "TBA";
+const CA: string = "0x65502864344bdb2dc383001ab9b1a4696fd437dd";
 
 /**
  * True once the domain points at this deployment. While false, the production *.vercel.app host is served as is (kept

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TOKEN } from "@/config/brand";
 import { CONTRACTS, roomLive } from "@/config/contracts";
 import { NETWORKS } from "@/config/networks";
 import { ETH_USD_FEED, TESTNET_WETH, USDG, WETH } from "@/config/dex";
@@ -160,7 +161,7 @@ export default function MethodPage() {
         <h2 className="h-sub mt-5">What the server keeps, and how it checks you</h2>
         <ul className="mt-5 grid gap-2 text-[13px] text-[var(--ink-2)]">
           <li>· Sign-in: one EIP-4361 message (no gas) for semvio.xyz, chain 4663, valid at most 4 hours. The server checks the signature, a fixed list of domains (never the request&apos;s Host header), the chain, the expiry and that you did not sign out, on every request. EOA wallets only.</li>
-          <li>· Tier: balanceOf × 1000 ≥ totalSupply on the {"$SEMVIO"} contract, read at each holder action (cached 30 seconds per wallet). Before launch everyone is on the free tier.</li>
+          <li>· Tier: balanceOf × 1000 ≥ totalSupply on the {"$SEMVIO"} contract, read at each holder action (cached 30 seconds per wallet).{TOKEN.isLive ? null : " Before launch everyone is on the free tier."}</li>
           <li>· Board: public requests (side, asset, size, indicative unit price, validity). Limits per wallet by tier, per network and for the whole site; a full board refuses new posts and never drops anyone&apos;s request. Holder requests are listed and matched first.</li>
           <li>· Storage: a shared store when configured; otherwise this server&apos;s memory (bounded, with expiry), and the page says data may be lost on restart.</li>
           <li>· Alerts: derived from the deal room&apos;s events for your wallet on request; nothing is stored about you on the server. Browser notifications only while a tab is open.</li>
